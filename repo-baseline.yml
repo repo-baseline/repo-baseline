@@ -1,0 +1,6 @@
+---
+  repo-baseline:
+    - name: repo-baseline-file-available
+      options:
+        files:
+          - repo-baseline.yml

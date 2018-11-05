@@ -2,7 +2,7 @@
   "name": "repo-baseline",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,10 +15,16 @@
   "bugs": {
     "url": "https://github.com/repo-baseline/repo-baseline/issues"
   },
+  "bin": {
+    "repo-baseline": "./bin/cli.js"
+  },
   "homepage": "https://github.com/repo-baseline/repo-baseline#readme",
   "dependencies": {
     "bluebird": "^3.5.2",
     "commander": "^2.19.0",
-    "npm": "^6.4.1"
+    "js-yaml": "^3.12.0",
+    "npm": "^6.4.1",
+    "repo-baseline-file-available": "^1.0.0",
+    "repo-baseline-oliverlorenz": "^1.0.4"
   }
 }
