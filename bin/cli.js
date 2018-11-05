@@ -2,44 +2,46 @@
 
 const Promise = require('bluebird');
 const program = require('commander');
+const RuleSet = require('repo-baseline-ruleset');
 const fs = require('fs');
 const npm = require("npm");
 const path = require('path');
-const { version } = require('../package.json')
-const yaml = require('js-yaml')
+const packageJson = require('../package.json')
 const exec = require('child_process').exec
-    
+const rulesFile = require('../src/rulesFile');
+
 program
-  .version(version)
-  .option('-p, --path [path]', 'Add path')
+  .version(packageJson.version)
+  .option('-p, --path [path]', 'Add path', process.cwd())
   .parse(process.argv);
 
+  console.log(program.path)
+let rules = rulesFile.get(program.path);
+const repoPath = program.path || process.cwd();
+const packages = rulesFile.getRulePackagesRequired(repoPath);
 
-
-let rules = loadRulesFromSelectedRepo(program.path);
-
-function loadRulesFromSelectedRepo(repoPath) {
-    return loadRepoBaselineYml(
-        getPathOfRules(program.path)
-    );
-}
-
-function loadRepoBaselineYml(path) {
-    return yaml.safeLoad(fs.readFileSync(path, 'utf8'))['repo-baseline']
-}
-
-function getPathOfRules(repoPath) {
-    return path.join(
-        repoPath,
-        'repo-baseline.yml'
-    )
-}
-
-function getListOfPackages(baselineYmlData) {
-    return baselineYmlData.map((rule) => {
-        return rule.name;
+return Promise.resolve(rules)
+    .each((ruleSet) => {
+        const package = require(ruleSet.name);
+        console.log(`check: ${ruleSet.name}`)
+        return package.run(repoPath, ruleSet.options, 1, (message, vaild) => {
+            console.log(` - (${vaild ? " ok": "nok"}) ${message}`);
+        })
+        .then(() => {
+            console.log(`:${ruleSet.name} valid!\n`);
+        })
+        .catch(() => {
+            console.log(`:${ruleSet.name} violated!\n`);
+        })
     })
-}
+
+/*
+
+return RuleSet(packageJson).run(repoPath, {}, 0, (message, valid) => {
+    console.log(message);
+})
+
+
 
 function diff(arr1, arr2) {
     return arr1.filter(x => !arr2.includes(x))
@@ -56,7 +58,7 @@ function getListOfPackagesToInstall(fullPackagesList) {
             resolve(diff1)
           });
     })
-    
+
 }
 
 function installMissingPackages(missingPackages) {
@@ -70,7 +72,7 @@ function installMissingPackages(missingPackages) {
         })
 }
 
-const packages = getListOfPackages(rules);
+
 
 function getRulesOfPackage(packageName) {
     const package = require(packageName);
@@ -90,7 +92,7 @@ getListOfPackagesToInstall(packages)
     })
     .then(() => {
         const rules = loadRulesFromSelectedRepo(program.path);
-        return getListOfPackages(rules);
+        return rulesFile.getRulePackagesRequired(rules);
     })
     .each((packageName) => {
         console.log(packageName, getRulesOfPackage(packageName))
@@ -159,15 +161,15 @@ function installPackage(packageName) {
                   console.log(packageName.name, 'nok')
               })
       });
-  
+
   console.log(isPackageInstalled(program.path, 'repo-baseline-contrib-package-json-available'))
-  
+
   function getFullListOfRules(repoPath) {
       const pathOfPackageJson = getPathOfPackageJson(program.path);
       const packageJson = require(pathOfPackageJson)
       return packageJson['repo-baseline'];
   }
-  
+
   function isPackageInstalled(repoPath, packageName) {
       const pathToPackage = path.join(
           repoPath,
@@ -180,7 +182,7 @@ function installPackage(packageName) {
           return false;
       }
   }
-  
+
   function installRules(repoPath) {
       return new Promise((resolve, reject) => {
           const packagesToInstall = [];
