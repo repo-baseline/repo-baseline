@@ -24,9 +24,8 @@
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "js-yaml": "^3.12.0",
+    "live-plugin-manager": "^0.12.0",
     "npm": "^6.4.1",
-    "repo-baseline-file-available": "^1.0.2",
-    "repo-baseline-oliverlorenz": "^1.0.4",
-    "repo-baseline-ruleset": "^1.0.0"
+    "repo-baseline-ruleset": "^1.0.2"
   }
 }

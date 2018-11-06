@@ -2,13 +2,14 @@
 
 const Promise = require('bluebird');
 const program = require('commander');
-const RuleSet = require('repo-baseline-ruleset');
 const fs = require('fs');
 const npm = require("npm");
 const path = require('path');
 const packageJson = require('../package.json')
 const exec = require('child_process').exec
 const rulesFile = require('../src/rulesFile');
+const { PluginManager } = require("live-plugin-manager");
+const RuleSet = require('repo-baseline-ruleset');
 
 program
   .version(packageJson.version)
@@ -19,20 +20,35 @@ program
 let rules = rulesFile.get(program.path);
 const repoPath = program.path || process.cwd();
 const packages = rulesFile.getRulePackagesRequired(repoPath);
+const manager = new PluginManager();
+const config = packageJson['rule'];
 
-return Promise.resolve(rules)
+const ruleSet = RuleSet(manager, repoPath, rules)
+
+return ruleSet.run((message, isValid) => {
+    console.log(message, isValid)
+})
+
+/*
+Promise.resolve(rules)
     .each((ruleSet) => {
-        const package = require(ruleSet.name);
-        console.log(`check: ${ruleSet.name}`)
-        return package.run(repoPath, ruleSet.options, 1, (message, vaild) => {
-            console.log(` - (${vaild ? " ok": "nok"}) ${message}`);
-        })
-        .then(() => {
-            console.log(`:${ruleSet.name} valid!\n`);
-        })
-        .catch(() => {
-            console.log(`:${ruleSet.name} violated!\n`);
-        })
+        console.log(`load ${ruleSet.name}`)
+        return manager.installFromNpm(ruleSet.name)
+            .then(() => {
+                return manager.require(ruleSet.name)
+            })
+            .then((package) => {
+                return package.run(repoPath, ruleSet.options, 1, (message, vaild) => {
+                    console.log(` - (${vaild ? " ok": "nok"}) ${message}`);
+                })
+            })
+            .then(() => {
+                console.log(`:${ruleSet.name} valid!\n`);
+            })
+            .catch((err) => {
+                console.log(err)
+                console.log(`:${ruleSet.name} violated!\n`);
+            })
     })
 
 /*
