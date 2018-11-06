@@ -1,7 +1,7 @@
 ---
-  repo-baseline:
-    - name: repo-baseline-oliverlorenz
-#    - name: repo-baseline-file-available
-#      options:
-#        files:
-#          - repo-baseline.yml
+repo-baseline:
+  - name: repo-baseline-oliverlorenz
+  - name: repo-baseline-file-available
+    options:
+      files:
+        - repo-baseline.yml

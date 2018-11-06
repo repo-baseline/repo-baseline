@@ -21,11 +21,9 @@
   "homepage": "https://github.com/repo-baseline/repo-baseline#readme",
   "dependencies": {
     "bluebird": "^3.5.2",
-    "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "js-yaml": "^3.12.0",
     "live-plugin-manager": "^0.12.0",
-    "npm": "^6.4.1",
     "repo-baseline-ruleset": "^1.0.2"
   }
 }
