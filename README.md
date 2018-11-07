@@ -10,3 +10,21 @@ repo-baseline is a tool for your test pipeline. It helps you and your team not t
 ## Motivation
 
 Any person today can put software online. The quality of the software is insignificant and often not very satisfactory. Deep dependency-trees and badly maintained repositories thus migrate into your own tech stack. This tool is supposed to add a building block to increase and maintain the quality of software.
+
+## Usage
+
+Try this: 
+```
+cd path/to/repository
+npm repo-baseline
+```
+
+The tool will complain about not finding a `repo-baseline.yml`. As an example, you can take the `repo-baseline.yml` of this project by simply executing the following command:
+
+```
+curl -O https://raw.githubusercontent.com/oliverlorenz/repo-baseline/master/repo-baseline.yml
+```
+After that, do the following again:
+```
+npx repo-baseline
+```
