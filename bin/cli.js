@@ -31,7 +31,7 @@ function printInvalidMessage(message) {
     counter.invalid++;
 }
 
-function printMessage(message) {
+function printMessage(message, isValid) {
     console.log('    ', message, isValid);
 }
 
