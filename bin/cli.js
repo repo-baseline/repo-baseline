@@ -11,11 +11,43 @@ program
   .option('-p, --path [path]', 'Add path', process.cwd())
   .parse(process.argv);
 
-console.log("checking directory:", program.path)
+console.log(`checking directory: ${program.path}\n`)
 let rules = rulesFile.get(program.path);
 const repoPath = program.path || process.cwd();
 const manager = new PluginManager();
 
-return RuleSet(manager, repoPath, rules).run((message, isValid) => {
-    console.log("    ", message, isValid)
-})
+const counter = {
+    valid: 0,
+    invalid: 0
+};
+
+function printValidMessage(message) {
+    printMessage(message);
+    counter.valid++;
+}
+
+function printInvalidMessage(message) {
+    printMessage(message);
+    counter.invalid++;
+}
+
+function printMessage(message) {
+    console.log('    ', message);
+}
+
+return RuleSet(manager, repoPath, rules)
+    .run((message, isValid) => {
+        if (isValid) {
+            printValidMessage(message);
+        } else {
+            printInvalidMessage(message);
+        }
+    })
+    .then(() => {
+        console.log(`\ntotal: ${counter.valid + counter.invalid}, valid: ${counter.valid}, invalid: ${counter.invalid}`)
+        process.exit(0)
+    })
+    .catch(() => {
+        console.log(`\ntotal: ${counter.valid + counter.invalid}, valid: ${counter.valid}, invalid: ${counter.invalid}`)
+        process.exit(1)
+    })

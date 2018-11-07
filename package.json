@@ -20,10 +20,13 @@
   },
   "homepage": "https://github.com/repo-baseline/repo-baseline#readme",
   "dependencies": {
-    "bluebird": "^3.5.2",
+    "bluebird": "^3.5.3",
     "commander": "^2.19.0",
     "js-yaml": "^3.12.0",
     "live-plugin-manager": "^0.12.0",
-    "repo-baseline-ruleset": "^1.0.2"
+    "repo-baseline-ruleset": "^1.0.6"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
