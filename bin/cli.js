@@ -4,7 +4,7 @@ const program = require('commander');
 const packageJson = require('../package.json')
 const rulesFile = require('../src/rulesFile');
 const { PluginManager } = require("live-plugin-manager");
-const RuleSet = require('repo-baseline-ruleset');
+const RuleSet = require('repo-baseline-ruleset'); 
 
 program
   .version(packageJson.version)
