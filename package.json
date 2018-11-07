@@ -1,6 +1,6 @@
 {
   "name": "repo-baseline",
-  "version": "0.0.0-development",
+  "version": "0.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
