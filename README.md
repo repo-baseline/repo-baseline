@@ -5,4 +5,4 @@
 
 # repo-baseline
 
-repo-baseline is a tool for linting your repository. You can define one or multiple rulesets they will be checked. 
+repo-baseline is a tool for your test pipeline. It helps you and your team not to fall below a certain quality level in your repository. You simply create a ruleset (or use a existing one) according to your taste, and repo-baseline checks if all requirements are met.
