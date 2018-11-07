@@ -22,17 +22,17 @@ const counter = {
 };
 
 function printValidMessage(message) {
-    printMessage(message);
+    printMessage(message, true);
     counter.valid++;
 }
 
 function printInvalidMessage(message) {
-    printMessage(message);
+    printMessage(message, false);
     counter.invalid++;
 }
 
 function printMessage(message) {
-    console.log('    ', message);
+    console.log('    ', message, isValid);
 }
 
 return RuleSet(manager, repoPath, rules)
