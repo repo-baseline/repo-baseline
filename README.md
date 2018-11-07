@@ -1,7 +1,7 @@
 [![Passing Tests on master](https://travis-ci.org/oliverlorenz/repo-baseline.svg?branch=master)](https://travis-ci.org/oliverlorenz/repo-baseline)
 [![Dependency check](https://david-dm.org/oliverlorenz/repo-baseline/status.svg)](https://david-dm.org/oliverlorenz/repo-baseline)
 [![Maintainability](https://api.codeclimate.com/v1/badges/efffccdc0db9b67c4f74/maintainability)](https://codeclimate.com/github/oliverlorenz/repo-baseline/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/efffccdc0db9b67c4f74/test_coverage)](https://codeclimate.com/github/oliverlorenz/repo-baseline/test_coverage) 
-[![Greenkeeper badge](https://badges.greenkeeper.io/oliverlorenz/repo-baseline.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/oliverlorenz/repo-baseline.svg)](https://greenkeeper.io/) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)
 
 # repo-baseline
 
