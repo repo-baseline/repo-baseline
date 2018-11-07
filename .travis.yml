@@ -10,9 +10,9 @@ node_js:
   - '8'
   - '6'
 before:
-    - "npm install -g npm"
+  - "npm install -g npm"
 script:
-- npx repo-baseline
+  - npx repo-baseline
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
 branches:
