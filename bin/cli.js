@@ -49,8 +49,7 @@ const RuleSet = require('repo-baseline-ruleset');
                     printInvalidMessage(message);
                 }
             })
-        console.log(`\ntotal: ${counter.valid + counter.invalid}, valid: ${counter.valid}, invalid: ${counter.invalid}`)
-    } catch (err) {
+    } finally {
         console.log(`\ntotal: ${counter.valid + counter.invalid}, valid: ${counter.valid}, invalid: ${counter.invalid}`)
     }
 })();
