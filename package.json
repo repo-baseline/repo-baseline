@@ -23,6 +23,7 @@
   "homepage": "https://github.com/oliverlorenz/repo-baseline#readme",
   "dependencies": {
     "bluebird": "^3.5.3",
+    "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "js-yaml": "^3.12.0",
     "live-plugin-manager": "^0.12.0",

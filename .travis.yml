@@ -12,6 +12,7 @@ before:
   - "npm install -g npm"
 script:
   - npx repo-baseline
+  - npm test
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
 branches:
