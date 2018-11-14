@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc --reporter=html --reporter=text mocha --recursive test/",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
   },
@@ -26,11 +26,13 @@
     "commander": "^2.19.0",
     "js-yaml": "^3.12.0",
     "live-plugin-manager": "^0.12.0",
-    "repo-baseline-ruleset": "^1.0.6"
+    "repo-baseline-ruleset": "^1.1.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^5.2.0",
-    "semantic-release": "^15.10.8",
+    "nyc": "^13.1.0",
+    "semantic-release": "^15.11.0",
     "travis-deploy-once": "^5.0.9"
   }
 }
