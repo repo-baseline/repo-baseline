@@ -52,5 +52,7 @@ const RuleSet = require('repo-baseline-ruleset');
     } finally {
         console.log(`\ntotal: ${counter.valid + counter.invalid}, valid: ${counter.valid}, invalid: ${counter.invalid}`)
     }
+    const exitCode = (counter.invalid) === 0 ? 0 : 1;
+    process.exit(exitCode);
 })();
 
