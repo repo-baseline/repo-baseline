@@ -5,6 +5,7 @@ const packageJson = require('../package.json')
 const { PluginManager } = require("live-plugin-manager");
 const RuleManager = require('../src/RuleManager');
 const RuleSet = require('repo-baseline-ruleset');
+const chalk = require('chalk');
 
 (async () => {
     program
@@ -26,33 +27,37 @@ const RuleSet = require('repo-baseline-ruleset');
         invalid: 0
     };
 
-    function printValidMessage(message) {
-        printMessage(message, true);
+    function printValidMessage(message, level) {
+        printMessage(chalk.green("✔ ") + chalk.grey(message), level);
         counter.valid++;
     }
     
-    function printInvalidMessage(message) {
-        printMessage(message, false);
+    function printInvalidMessage(message, level) {
+        printMessage(chalk.red("✖ ") + chalk.grey(message), level);
         counter.invalid++;
     }
     
-    function printMessage(message, isValid) {
-        console.log('    ', message, isValid);
+    function printMessage(message, level = 10) {
+        console.log('  '.repeat(level), message);
     }
 
     try {
         await RuleSet(manager, program.path, rules)
-            .run((message, isValid) => {
+            .run((message, isValid, level) => {
                 if (isValid) {
-                    printValidMessage(message);
+                    printValidMessage(message, level);
                 } else {
-                    printInvalidMessage(message);
+                    printInvalidMessage(message, level);
                 }
             })
     } finally {
-        console.log(`\ntotal: ${counter.valid + counter.invalid}, valid: ${counter.valid}, invalid: ${counter.invalid}`)
+        console.log(`
+Result:
+${chalk.green("✔")} valid:   ${counter.valid}
+${chalk.red("✖")} invalid: ${counter.invalid}
+  total:   ${counter.valid + counter.invalid}
+`);
     }
     const exitCode = (counter.invalid) === 0 ? 0 : 1;
     process.exit(exitCode);
 })();
-
